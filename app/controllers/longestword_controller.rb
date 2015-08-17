@@ -6,10 +6,12 @@ class LongestwordController < ApplicationController
   def game
     @grid_size = params[:grid_size].to_i
     @grid = generate_grid(@grid_size)
+    @shuffle = @grid.shuffle
   end
 
   def score
-
+    @guess = params[:guess]
+    @definition = get_translation(@guess)
   end
 
   private
@@ -17,7 +19,6 @@ class LongestwordController < ApplicationController
   def generate_grid(grid_size)
     Array.new(grid_size) { ('A'..'Z').to_a[rand(26)] }
   end
-
 
   def included?(guess, grid)
     the_grid = grid.clone

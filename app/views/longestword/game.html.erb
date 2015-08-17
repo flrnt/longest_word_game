@@ -1,21 +1,55 @@
 <h1>Welcome to the longest word game!</h1>
 
 <form action="/game" method="get">
-  <input type="text" name="grid_size" placeholder="Pick up a number">
-  <input type="submit">
+  <input type="text" name="grid_size" placeholder="Pick up a number" class ="form-control">
+  <input type="submit" value="Generate" class ="btn btn-primary">
 </form>
 
-<span>Here's your grid of <%= @grid_size%> letters :</span>
-<ul class="list-inline">
-  <% @grid.each do |letter| %>
-    <li><%= letter %></li>
-  <% end %>
-</ul>
+<div class="text-center">
+  <h4>Here's your grid of <%= @grid_size%> letters :</h4>
+  <ul class="list-inline" id="letters">
+    <% @grid.each do |letter| %>
+      <li><%= letter %></li>
+    <% end %>
+  </ul>
+  <button id="shuffle" type="button" class="btn btn-warning">Shuffle</button>
+</div>
+
+
 
 <form action="/score" method="get">
   <label for="guess">What's your best shot ?</label>
-  <input type="text" name="guess">
-  <input type="submit">
+  <input type="text" name="guess" class="form-control">
+  <input type="submit" value="Validate" class ="btn btn-primary">
 </form>
+
+<script>
+  var list = document.getElementById("letters"),
+  button = document.getElementById("shuffle");
+  function shuffle(items)
+  {
+      var cached = items.slice(0), temp, i = cached.length, rand;
+      while(--i)
+      {
+          rand = Math.floor(i * Math.random());
+          temp = cached[rand];
+          cached[rand] = cached[i];
+          cached[i] = temp;
+      }
+      return cached;
+  }
+  function shuffleNodes()
+  {
+      var nodes = list.children, i = 0;
+      nodes = Array.prototype.slice.call(nodes);
+      nodes = shuffle(nodes);
+      while(i < nodes.length)
+      {
+          list.appendChild(nodes[i]);
+          ++i;
+      }
+  }
+  button.onclick = shuffleNodes;
+</script>
 
 
