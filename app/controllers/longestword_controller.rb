@@ -9,6 +9,7 @@ class LongestwordController < ApplicationController
   end
 
   def score
+
   end
 
   private

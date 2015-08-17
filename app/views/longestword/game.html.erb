@@ -1,8 +1,21 @@
 <h1>Welcome to the longest word game!</h1>
 
 <form action="/game" method="get">
-  <input type="text" name="grid_size">
+  <input type="text" name="grid_size" placeholder="Pick up a number">
   <input type="submit">
 </form>
 
-<%= @grid %>
+<span>Here's your grid of <%= @grid_size%> letters :</span>
+<ul class="list-inline">
+  <% @grid.each do |letter| %>
+    <li><%= letter %></li>
+  <% end %>
+</ul>
+
+<form action="/score" method="get">
+  <label for="guess">What's your best shot ?</label>
+  <input type="text" name="guess">
+  <input type="submit">
+</form>
+
+
